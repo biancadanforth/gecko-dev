@@ -28,6 +28,12 @@ class ShieldStudySavantClass {
   }
 
   init() {
+    // TODO: implement eligibility (#13)
+    const isEligible = true;
+    if (!isEligible) {
+      this.endStudy("ineligible");
+      return;
+    }
     // check the pref in case Normandy flipped it on before we could add the pref listener
     this.shouldCollect = Services.prefs.getBoolPref(this.SHIELD_STUDY_SAVANT_PREF);
     if (this.shouldCollect) {
