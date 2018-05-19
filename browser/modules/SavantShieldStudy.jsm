@@ -51,7 +51,7 @@ class SavantShieldStudyClass {
         this.startupStudy();
       } else {
         // The pref has been turned off
-        this.endStudy("study-disabled");
+        this.endStudy("study_disable");
       }
     }
   }
@@ -113,15 +113,10 @@ class SavantShieldStudyClass {
     return false;
   }
 
-
-  sendEvent(method, object, value, extra) {
-    this.TelemetryEvents.sendEvent(method, object, value, extra);
-  }
-
   endStudy(reason) {
     log.debug(`Ending the study due to reason: ${ reason }`);
     const isStudyEnding = true;
-    // Services.telemetry.recordEvent(this.STUDY_TELEMETRY_CATEGORY, "end_study", reason);
+    Services.telemetry.recordEvent(this.STUDY_TELEMETRY_CATEGORY, "end_study", reason);
     this.TelemetryEvents.disableCollection();
     this.uninit(isStudyEnding);
     // These prefs needs to persist between restarts, so only reset on endStudy
@@ -145,13 +140,13 @@ class SavantShieldStudyClass {
     Services.prefs.clearUserPref(PREF_LOG_LEVEL);
     Services.prefs.clearUserPref(this.STUDY_DURATION_OVERRIDE_PREF);
   }
-};
+}
 
 const SavantShieldStudy = new SavantShieldStudyClass();
 
 // references:
-//  - https://hg.mozilla.org/mozilla-central/file/tip/toolkit/components/normandy/lib/TelemetryEvents.jsm
-//. - https://hg.mozilla.org/mozilla-central/file/tip/toolkit/components/normandy/lib/PreferenceExperiments.jsm#l357
+// - https://hg.mozilla.org/mozilla-central/file/tip/toolkit/components/normandy/lib/TelemetryEvents.jsm
+// - https://hg.mozilla.org/mozilla-central/file/tip/toolkit/components/normandy/lib/PreferenceExperiments.jsm#l357
 class TelemetryEvents {
   constructor(studyCategory) {
     this.STUDY_TELEMETRY_CATEGORY = studyCategory;
