@@ -226,6 +226,51 @@ savant:
     expiry_version: "65"
     extra_keys:
       subcategory: The broad event category for this probe. E.g. navigation
+  pwmgr_use:
+    objects: ["use"]
+    release_channel_collection: opt-out
+    record_in_processes: ["main"]
+    description: >
+      Client uses saved login information from the Password Manager
+    bug_numbers: [1457226, 1465685]
+    notification_emails:
+      - "bdanforth@mozilla.com"
+      - "shong@mozilla.com"
+    expiry_version: "65"
+    extra_keys:
+      subcategory: The broad event category for this probe. E.g. navigation
+      flow_id: A tab identifier to associate events occuring in the same tab
+  pwmgr:
+    objects: ["ask", "save", "update"]
+    release_channel_collection: opt-out
+    record_in_processes: ["main"]
+    description: >
+      Password Manager asks the user to save or update login information.
+      For ask prompts, the value field indicate a save versus update ask.
+    bug_numbers: [1457226, 1465685]
+    notification_emails:
+      - "bdanforth@mozilla.com"
+      - "shong@mozilla.com"
+    expiry_version: "65"
+    extra_keys:
+      subcategory: The broad event category for this probe. E.g. navigation
+      flow_id: A tab identifier to associate events occuring in the same tab
+  login_form:
+    objects: ["load", "submit"]
+    release_channel_collection: opt-out
+    record_in_processes: ["main"]
+    description: >
+      A login form has been loaded or submitted. Login form submit events only
+      fire in non-private windows with Password Manager enabled.
+    bug_numbers: [1457226, 1465685]
+    notification_emails:
+      - "bdanforth@mozilla.com"
+      - "shong@mozilla.com"
+    expiry_version: "65"
+    extra_keys:
+      subcategory: The broad event category for this probe. E.g. navigation
+      flow_id: A tab identifier to associate events occuring in the same tab
+      canRecordSubmit: True if a login form loads in a non-private window with Password Manager enabled.
 
 # This category contains event entries used for Telemetry tests.
 # They will not be sent out with any pings.
